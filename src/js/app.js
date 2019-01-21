@@ -1,10 +1,11 @@
 import '../scss/styles.scss';
 import * as PIXI from 'pixi.js';
 import $ from 'jquery';
+//import 'jquery-ui-bundle';
 import PixiFps from 'pixi-fps';
 const fpsCounter = new PixiFps();
 // modules
-import './modules/myutils.js';
+import utils from './modules/myutils.js';
 // images
 import '../images/circle.png';
 
@@ -27,20 +28,32 @@ app.renderer.view.style.display = "block";
 app.renderer.autoResize = true;
 
 $( 'body' ).append( app.view );
-app.stage.addChild(fpsCounter);
+// app.stage.addChild(fpsCounter);
 
 PIXI.loader
   .add( '../images/circle.png' )
   .load( setup );
 
 function setup(){
-  let sprite = new PIXI.Sprite( PIXI.loader.resources[ '../images/circle.png' ].texture );
-  sprite.position.x = 200;
-  sprite.position.y = 200;
-  app.stage.addChild( sprite );
+  for( var i = 0; i<5000; i++ ){
+    let sprite = new PIXI.Sprite( PIXI.loader.resources[ '../images/circle.png' ].texture );
+    sprite.position.x = utils.getRandomInt( 0, innerWidth );
+    sprite.position.y = utils.getRandomInt( 0, innerHeight );
+    app.stage.addChild( sprite );
+  }
 
+  // add_slider();
+
+  app.stage.addChild(fpsCounter);
 }
 
+// function add_slider(){
+//   $( 'body' ).append(`<div id="slider" style="display:block;position:absolute;z-index:2"></div>`);
+//   $( ()=>{
+//     $( "#slider" ).slider();
+//
+//   });
+// }
 
 
 

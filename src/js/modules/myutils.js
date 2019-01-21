@@ -1,11 +1,11 @@
 
-module.exports = ()=>{
+module.exports = {
   /**
   * Returns a random number between min (inclusive) and max (exclusive)
   */
-  function getRandomArbitrary(min, max) {
+  getRandomArbitrary : function(min, max) {
     return Math.random() * (max - min) + min;
-  }
+  },
 
   /**
   * Returns a random integer between min (inclusive) and max (inclusive).
@@ -14,9 +14,10 @@ module.exports = ()=>{
   * lower than max if max isn't an integer).
   * Using Math.round() will give you a non-uniform distribution!
   */
-  function getRandomInt(min, max) {
+  getRandomInt : function(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
+
 }
