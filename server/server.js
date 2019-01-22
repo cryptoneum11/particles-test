@@ -11,19 +11,20 @@ server.use(session({ secret: 'sector5', resave:false, saveUninitialized:true, co
 // Our server will use the /dist directory for static assets (html,css,js)
 server.use(express.static(__dirname + '/../client/dist'));
 
-server.post('/route/:num', (req, res, next)=>{
-  req.session.num = req.params.num;
-  console.log( req.params );
+server.post('/route/:vars', (req, res, next)=>{
+  vars = JSON.parse(req.params.vars);
+  req.session.num = vars.num;
+  req.session.animate = vars.animate;
+  console.log( req.session );
   res.send( '1' );
 });
 
 server.get('/route', (req, res, next)=>{
   if(req.session.num){
-    console.log( req.session.num );
-    res.send( req.session.num );
+    res.send( { "num" : req.session.num, "animate" : req.session.animate } );
   }else{
-    console.log( 10 );
-    res.send( '10' );
+    console.log( "initial values: { num: 10, animate: true }" );
+    res.send( { num: 10, animate: true } );
   }
 });
 
