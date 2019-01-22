@@ -2,8 +2,8 @@ const path = require('path');
 const PugPlugin = require('html-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -24,8 +24,8 @@ module.exports = {
         cache: true,
         parallel: true,
         sourceMap: true // set to true if you want JS source maps
-      }),
-      new OptimizeCSSAssetsPlugin({})
+      })
+      // new OptimizeCSSAssetsPlugin({})
     ]
   },
   module: {
@@ -53,10 +53,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader?name=./css/[name].[ext]'
-        ]
+        use: [ 'style-loader', 'css-loader' ]
+        // use: [
+        //   MiniCssExtractPlugin.loader,
+        //   'css-loader?name=./css/[name].[ext]'
+        // ]
       },
       {
         test: /\.scss$/,
@@ -87,10 +88,14 @@ module.exports = {
       template: './src/index.pug',
       inject: false
     }),
-    new HtmlWebpackPlugin(),
-    new MiniCssExtractPlugin({
-      filename: "css/[name].css",
-      chunkFilename: "css/[id].css"
-    })
+    new HtmlWebpackPlugin()
   ]
 };
+
+    // ,
+    // new MiniCssExtractPlugin({
+    //   filename: "css/[name].css",
+    //   chunkFilename: "css/[id].css"
+    // })
+  //]
+//};

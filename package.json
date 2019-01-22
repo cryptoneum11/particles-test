@@ -9,7 +9,8 @@
     "jquery-ui": "^1.12.1",
     "jquery-ui-bundle": "^1.12.1-migrate",
     "pixi-fps": "^1.1.3",
-    "pixi.js": "^4.8.5"
+    "pixi.js": "^4.8.5",
+    "webpack-jquery-ui": "^2.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",

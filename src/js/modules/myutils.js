@@ -18,6 +18,12 @@ module.exports = {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  },
+
+  random : function(min, max) {
+    if (max == null) { max = min; min = 0; }
+    if (min > max) { var tmp = min; min = max; max = tmp; }
+    return min + (max - min) * Math.random();
   }
 
 }

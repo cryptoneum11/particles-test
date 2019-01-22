@@ -3,3 +3,39 @@ body{
   margin:0;
   padding:0;
 }
+#num-particles-display{
+  z-index: 3;
+  color: #FFF;
+  padding: 4px;
+  margin: 0;
+  display: block;
+  right: 0; bottom: 0;
+  font-size: 1.35em;
+  position: absolute;
+}
+#slider{
+  top: 1%;
+  width: 70%;
+  margin: auto;
+  display: block;
+  left: 0; right: 0;
+  position: absolute;
+}
+#slider-text{
+  top: 3%;
+  width: 20%;
+  color: #FFF;
+  margin: auto;
+  display: block;
+  left: 0; right: 0;
+  position: absolute;
+  text-align: center;
+}
+.ui-slider{
+  opacity: .75;
+  background-color: #999;
+}
+.ui-slider-handle{
+  width: 10%;
+  background-color: #FFF;
+}
