@@ -2,15 +2,14 @@ const path = require('path');
 const PugPlugin = require('html-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-// const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+
 
 module.exports = {
   entry: {
     'app': './src/js/app.js'
   },
   output: {
-      path: path.resolve(__dirname, './dist/'),
+      path: path.resolve(__dirname, 'dist/'),
       filename: './js/[name].js',
   },
   mode: 'development',

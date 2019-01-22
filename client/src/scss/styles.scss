@@ -42,8 +42,9 @@ body{
   text-align: center;
 }
 .ui-slider{
-  opacity: .75;
-  background-color: #999;
+  // opacity: .75;
+  color: black;
+  background-color: rgba(0,0,0,0.4);
 }
 .ui-slider-handle{
   width: 10%;

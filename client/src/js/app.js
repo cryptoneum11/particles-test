@@ -11,7 +11,7 @@ import utils from './modules/myutils.js';
 import hittest from './modules/hittest.js';
 // images
 import '../images/circle.png';
-import '../images/purp.png';
+// import '../images/purp.png';
 
 
 let type = "WebGL"
@@ -32,7 +32,7 @@ app.renderer.view.style.display = "block";
 app.renderer.autoResize = true;
 
 let sprites = [],
-    tweens = [],
+    multiplier = 150,
     dead = false;
 
 $( 'body' ).append( app.view );
@@ -45,7 +45,18 @@ PIXI.loader
 function setup(){
   add_slider();
   app.stage.addChild(fpsCounter);
-  animate_random();
+  $.ajax({
+    type: 'get',
+    url: './route',
+    success: data=>{
+      create_particles( data*multiplier );
+      animate_random();
+      $('.ui-slider-handle')
+        .css('left', data+'%').css('width', '5%').css('text-align', 'center')
+        .html(data+'%');
+      $( '#num-particles-display' ).html(`${data*multiplier} particles`);
+    }
+  });
 }
 
 function create_particles( num ){
@@ -65,9 +76,6 @@ function kill_all(){
   for(let i = 0; i < sprites.length; i++){
     app.stage.removeChild(sprites[i]);
   }
-  for(let i = 0; i < tweens.length; i++){
-    tweens[i].kill();
-  }
 }
 
 function add_slider(){
@@ -76,15 +84,26 @@ function add_slider(){
     <div id='slider-text'>num of particles</div>
   `);
   $( ()=>{
+
     $( "#slider" ).slider({
+      slide: (e,ui)=>{
+        $('.ui-slider-handle').html(ui.value+'%');
+      },
       change: (e,ui)=>{
         kill_all();
-        create_particles( ui.value*100 );
-        $('.ui-slider-handle').css('left', ui.value+'%');
-        $( '#num-particles-display' ).html(`${ui.value*100} particles`);
-        animate_random();
+        //console.log( 'in slider change' );
+        // console.log( ui.value );
+        $.ajax({
+          type: 'post',
+          url: `./route/${ ui.value }`,
+          success: data=>{
+            console.log( 'in ajax post' );
+            location.reload();
+          }
+        });
       }
     });
+
   });
 }
 
@@ -99,7 +118,7 @@ function animate_random(){
 }
 
 function animate_random_particle( p ){
-  let tween = TweenLite.to(p, utils.random(5, 10), {
+  TweenLite.to(p, utils.random(5, 10), {
     x: utils.random( 0, innerWidth ),
     y: utils.random( 0, innerHeight ),
     scaleX: utils.random( .2, 2 ),
@@ -108,7 +127,6 @@ function animate_random_particle( p ){
     onComplete: animate_random_particle,
     onCompleteParams: [ p ]
   });
-  tweens.push( tween );
 }
 
 
