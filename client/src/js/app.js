@@ -91,13 +91,10 @@ function add_slider(){
       },
       change: (e,ui)=>{
         kill_all();
-        //console.log( 'in slider change' );
-        // console.log( ui.value );
         $.ajax({
           type: 'post',
           url: `./route/${ ui.value }`,
           success: data=>{
-            console.log( 'in ajax post' );
             location.reload();
           }
         });
