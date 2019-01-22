@@ -1,7 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const server = express();
-const port = process.env.PORT || 8080; // can be any port, most commonly port 80, 8080, or 3000
+const port = process.env.PORT || 80; // can be any port, most commonly port 80, 8080, or 3000
 const eol = require('os').EOL; // uses OS generalized 'End-Of-Line' character
 const fs = require('fs'); // require NodeJS filesystem package
 
