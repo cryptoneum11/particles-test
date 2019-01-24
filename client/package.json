@@ -35,7 +35,7 @@
     "webpack-fix-style-only-entries": "0.0.4"
   },
   "scripts": {
-    "build": "webpack --watch",
+    "build": "webpack-dev-server --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

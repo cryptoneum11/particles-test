@@ -33,7 +33,9 @@ app.renderer.autoResize = true;
 
 let sprites = [],
     multiplier = 200,
-    dead = false, animate;
+    dead = false,
+    animate,
+    num = 5000;
 
 $( 'body' ).append( app.view );
 
@@ -49,34 +51,15 @@ $('#anim-toggle').on('click', ()=>{
   }
   kill_all();
   let slider_value = $('.ui-slider-handle').text().slice(0,-1);
-  let _data = JSON.stringify( { num: slider_value, animate: animate } );
-  $.ajax({
-    type: 'post',
-    url: `./route/${ _data }`,
-    success: data=>{
-      location.reload();
-    }
-  });
 });
 
 function setup(){
-  add_slider();
-  $.ajax({
-    type: 'get',
-    url: './route',
-    success: data=>{
-      console.log( data.animate );
-      animate = data.animate;
-      create_particles( data.num*multiplier );
-      animate_random();
-      $('.ui-slider-handle')
-        .css('left', data.num+'%').css('width', '5%').css('text-align', 'center')
-        .html(data.num+'%');
-      $( '#num-particles-display' ).html(`${data.num*multiplier} particles`);
-      // add FPS counter at the end
-      app.stage.addChild(fpsCounter);
-    }
-  });
+  // add_slider();
+  create_particles( num );
+  animate_random();
+  $( '#num-particles-display' ).html(`5000 particles`);
+  // add FPS counter at the end
+  app.stage.addChild(fpsCounter);
 }
 
 function create_particles( num ){
@@ -98,33 +81,6 @@ function kill_all(){
   }
 }
 
-function add_slider(){
-  $( 'body' ).append(`
-    <div id="slider" style="display:block;position:absolute;z-index:2"></div>
-    <div id='slider-text'>num of particles (0 min - 20,000 max)</div>
-  `);
-  $( ()=>{
-
-    $( "#slider" ).slider({
-      slide: (e,ui)=>{
-        $('.ui-slider-handle').html(ui.value+'%');
-      },
-      change: (e,ui)=>{
-        kill_all();
-        let _data = JSON.stringify( { num: ui.value, animate: animate } );
-        $.ajax({
-          type: 'post',
-          url: `./route/${ _data }`,
-          success: data=>{
-            location.reload();
-          }
-        });
-      }
-    });
-
-  });
-}
-
 function animate_random(){
   if( dead != true ){
     for(var i = 0; i<sprites.length; i++){
@@ -136,7 +92,6 @@ function animate_random(){
 }
 
 function animate_random_particle( p ){
-  if( animate == false ){ return; }
   TweenLite.to(p, utils.random(5, 10), {
     x: utils.random( 0, innerWidth ),
     y: utils.random( 0, innerHeight ),
